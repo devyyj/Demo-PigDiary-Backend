@@ -3,6 +3,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.12.RELEASE'
     id 'java'
     id 'war'
+    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 }
 
 group = 'kr.yyj'
@@ -30,8 +31,37 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.6'
+    // https://mvnrepository.com/artifact/com.querydsl/querydsl-jpa
+    implementation 'com.querydsl:querydsl-jpa:5.0.0'
+    implementation "com.querydsl:querydsl-apt:5.0.0" // 이 부분도 책에 없다 querydsl 관련
 }
 
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+// 여기서부터
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+    main.java.srcDir querydslDir
+}
+
+configurations {
+    // 아래 옵션 빠지면 빌드가 안된다.
+    // 책에는 아래 내용이 없음.
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    querydsl.extendsFrom compileClasspath
+}
+
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}
+// 여기까지 querydsl 관련
