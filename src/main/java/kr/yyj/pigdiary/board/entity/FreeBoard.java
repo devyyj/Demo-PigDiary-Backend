@@ -25,4 +25,14 @@ public class FreeBoard extends BaseEntity {
 
     @Column(length = 50, nullable = false)
     private String user;
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+
 }
