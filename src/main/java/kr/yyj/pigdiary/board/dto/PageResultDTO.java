@@ -2,9 +2,7 @@ package kr.yyj.pigdiary.board.dto;
 
 import lombok.Data;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
