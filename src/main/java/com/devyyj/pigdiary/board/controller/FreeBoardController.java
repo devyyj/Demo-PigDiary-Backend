@@ -1,4 +1,4 @@
-package kr.yyj.pigdiary.board.controller;
+package com.devyyj.pigdiary.board.controller;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;

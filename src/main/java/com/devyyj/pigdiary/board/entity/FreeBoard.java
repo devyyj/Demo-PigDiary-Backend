@@ -1,6 +1,6 @@
-package kr.yyj.pigdiary.board.entity;
+package com.devyyj.pigdiary.board.entity;
 
-import kr.yyj.pigdiary.common.entity.BaseEntity;
+import com.devyyj.pigdiary.common.entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,6 +12,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @ToString
 public class FreeBoard extends BaseEntity {
+
+    /**
+     * 엔티티 객체는 단순히 데이터를 담는 객체가 아니라 실제 데이터베이스와 관련이 있고
+     * 내부적으로 엔티티 매니저가 관리하는 객체이다.
+     */
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

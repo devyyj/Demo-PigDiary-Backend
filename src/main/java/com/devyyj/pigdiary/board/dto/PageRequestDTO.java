@@ -1,4 +1,4 @@
-package kr.yyj.pigdiary.board.dto;
+package com.devyyj.pigdiary.board.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

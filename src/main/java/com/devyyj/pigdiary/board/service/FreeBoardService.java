@@ -1,9 +1,9 @@
-package kr.yyj.pigdiary.board.service;
+package com.devyyj.pigdiary.board.service;
 
-import kr.yyj.pigdiary.board.dto.FreeBoardDTO;
-import kr.yyj.pigdiary.board.dto.PageRequestDTO;
-import kr.yyj.pigdiary.board.dto.PageResultDTO;
-import kr.yyj.pigdiary.board.entity.FreeBoard;
+import com.devyyj.pigdiary.board.dto.FreeBoardDTO;
+import com.devyyj.pigdiary.board.dto.PageRequestDTO;
+import com.devyyj.pigdiary.board.dto.PageResultDTO;
+import com.devyyj.pigdiary.board.entity.FreeBoard;
 
 public interface FreeBoardService {
     Long register(FreeBoardDTO dto);

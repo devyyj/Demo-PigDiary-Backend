@@ -1,4 +1,4 @@
-package kr.yyj.pigdiary.common.entity;
+package com.devyyj.pigdiary.common.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

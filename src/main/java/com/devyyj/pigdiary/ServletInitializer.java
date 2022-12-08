@@ -1,4 +1,4 @@
-package kr.yyj.pigdiary;
+package com.devyyj.pigdiary;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

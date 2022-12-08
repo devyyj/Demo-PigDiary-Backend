@@ -1,4 +1,4 @@
-package kr.yyj.pigdiary;
+package com.devyyj.pigdiary;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

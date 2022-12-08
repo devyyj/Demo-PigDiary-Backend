@@ -1,10 +1,10 @@
-package kr.yyj.pigdiary.repository;
+package com.devyyj.pigdiary.repository;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import kr.yyj.pigdiary.board.entity.FreeBoard;
-import kr.yyj.pigdiary.board.entity.QFreeBoard;
-import kr.yyj.pigdiary.board.repository.FreeBoardRepository;
+import com.devyyj.pigdiary.board.entity.FreeBoard;
+import com.devyyj.pigdiary.board.entity.QFreeBoard;
+import com.devyyj.pigdiary.board.repository.FreeBoardRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
