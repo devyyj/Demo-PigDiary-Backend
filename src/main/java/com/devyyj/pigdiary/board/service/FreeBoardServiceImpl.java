@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 @Service
@@ -22,26 +23,46 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     private final FreeBoardRepository freeBoardRepository; // 반드시 final로 선언
 
     @Override
-    public Long register(FreeBoardDTO dto) {
+    public Long createPost(FreeBoardDTO dto) {
         log.info("DTO------------------------");
         log.info(dto);
-
         FreeBoard entity = dtoToEntity(dto);
         log.info(entity);
-
         freeBoardRepository.save(entity);
-
         return entity.getNumber();
     }
 
     @Override
     public PageResultDTO<FreeBoardDTO, FreeBoard> getList(PageRequestDTO pageRequestDTO) {
         Pageable pageable = pageRequestDTO.getPageable(Sort.by("number"));
-
-        Page<FreeBoard> result =  freeBoardRepository.findAll(pageable);
-
+        Page<FreeBoard> result = freeBoardRepository.findAll(pageable);
         Function<FreeBoard, FreeBoardDTO> fn = (entity -> entityToDto(entity));
-
         return new PageResultDTO<>(result, fn);
+    }
+
+    @Override
+    public FreeBoardDTO getPost(Long postNumber) {
+        Optional<FreeBoard> result = freeBoardRepository.findById(postNumber);
+        // isPresent() 공부하기
+        return result.isPresent() ? entityToDto(result.get()) : null;
+    }
+
+    @Override
+    public void update(Long postNumber, FreeBoardDTO freeBoardDTO) {
+        Optional<FreeBoard> result = freeBoardRepository.findById(postNumber);
+
+        if (result.isPresent()) {
+            FreeBoard freeBoard = result.get();
+
+            freeBoard.setTitle(freeBoardDTO.getTitle());
+            freeBoard.setContent(freeBoardDTO.getContent());
+
+            freeBoardRepository.save(freeBoard);
+        }
+    }
+
+    @Override
+    public void delete(Long postNumber) {
+        freeBoardRepository.deleteById(postNumber);
     }
 }

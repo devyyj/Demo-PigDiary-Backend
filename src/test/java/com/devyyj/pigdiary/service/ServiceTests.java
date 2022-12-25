@@ -22,7 +22,7 @@ public class ServiceTests {
                 .user("test user")
                 .build();
 
-        System.out.println(fbs.register(freeBoardDTO));
+        System.out.println(fbs.createPost(freeBoardDTO));
     }
 
     @Test

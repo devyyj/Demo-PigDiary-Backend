@@ -6,9 +6,20 @@ import com.devyyj.pigdiary.board.dto.PageResultDTO;
 import com.devyyj.pigdiary.board.entity.FreeBoard;
 
 public interface FreeBoardService {
-    Long register(FreeBoardDTO dto);
-
+    // 게시글 목록
     PageResultDTO<FreeBoardDTO, FreeBoard> getList(PageRequestDTO pageRequestDTO);
+
+    // 게시글 생성
+    Long createPost(FreeBoardDTO dto);
+
+    // 게시글 내용
+    FreeBoardDTO getPost(Long postNumber);
+
+    // 게시글 수정
+    void update(Long postNumber, FreeBoardDTO freeBoardDTO);
+
+    // 게시글 삭제
+    void delete(Long postNumber);
 
     default FreeBoard dtoToEntity(FreeBoardDTO dto) {
         return FreeBoard
