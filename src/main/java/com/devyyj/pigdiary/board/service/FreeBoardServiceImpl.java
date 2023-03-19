@@ -34,7 +34,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
     @Override
     public PageResultDTO<FreeBoardDTO, FreeBoard> getList(PageRequestDTO pageRequestDTO) {
-        Pageable pageable = pageRequestDTO.getPageable(Sort.by("number"));
+        Pageable pageable = pageRequestDTO.getPageable(Sort.by("number").descending());
         Page<FreeBoard> result = freeBoardRepository.findAll(pageable);
         Function<FreeBoard, FreeBoardDTO> fn = (entity -> entityToDto(entity));
         return new PageResultDTO<>(result, fn);

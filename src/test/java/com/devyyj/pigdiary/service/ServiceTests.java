@@ -34,4 +34,5 @@ public class ServiceTests {
             System.out.println(freeBoardDTO);
         }
     }
+
 }

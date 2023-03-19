@@ -44,7 +44,7 @@ public class FreeBoardController {
 
     // 게시글 수정
     @PutMapping("/{postNumber}")
-    public ResponseEntity<String> updatePost(@PathVariable Long postNumber, FreeBoardDTO freeBoardDTO, PageRequestDTO pageRequestDTO) {
+    public ResponseEntity<String> updatePost(@PathVariable Long postNumber, FreeBoardDTO freeBoardDTO) {
         log.info("updatePost...........................");
 
         freeBoardService.update(postNumber, freeBoardDTO);
