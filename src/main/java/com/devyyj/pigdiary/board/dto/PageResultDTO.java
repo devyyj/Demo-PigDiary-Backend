@@ -31,6 +31,9 @@ public class PageResultDTO<DTO, EN> {
     // 페이지 번호 목록
     private List<Integer> pageList;
 
+    /**
+     * Page<Entity> result를 DTO 리스트로 변환
+     */
     public PageResultDTO(Page<EN> result, Function<EN, DTO> fn) {
         // 이거 좀 어려운데?? 이해가 잘 안된다.
         dtoList = result.stream().map(fn).collect(Collectors.toList());
@@ -47,7 +50,7 @@ public class PageResultDTO<DTO, EN> {
         int tempEnd = (int) (Math.ceil(page / 10.0)) * 10;
         start = tempEnd - 9;
         prev = start > 1;
-        end = totalPage > tempEnd ? tempEnd : totalPage;
+        end = Math.min(totalPage, tempEnd);
         next = totalPage > tempEnd;
 
         pageList = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());

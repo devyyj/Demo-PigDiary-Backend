@@ -34,6 +34,8 @@ dependencies {
     // https://mvnrepository.com/artifact/com.querydsl/querydsl-jpa
     implementation 'com.querydsl:querydsl-jpa:5.0.0'
     implementation "com.querydsl:querydsl-apt:5.0.0" // 이 부분도 책에 없다 querydsl 관련
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 }
 
 tasks.named('test') {

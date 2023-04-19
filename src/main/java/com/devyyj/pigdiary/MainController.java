@@ -6,8 +6,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MainController {
 
-    @GetMapping("/")
-    public String[] main() {
-        return new String[]{"m", "a", "i", "n"};
+    @GetMapping("/all")
+    public String all() {
+        return "all";
     }
+
+    @GetMapping("/member")
+    public String member() {
+        return "member";
+    }
+
+    @GetMapping("/admin")
+    public String admin() {
+        return "admin";
+    }
+
 }

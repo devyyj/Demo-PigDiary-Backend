@@ -32,7 +32,7 @@ public interface FreeBoardService {
     }
 
     default FreeBoardDTO entityToDto(FreeBoard entity) {
-        FreeBoardDTO dto = FreeBoardDTO.builder()
+        return FreeBoardDTO.builder()
                 .number(entity.getNumber())
                 .title(entity.getTitle())
                 .content(entity.getContent())
@@ -40,8 +40,6 @@ public interface FreeBoardService {
                 .regDate(entity.getRegDate())
                 .modDate(entity.getModDate())
                 .build();
-
-        return dto;
     }
 
 

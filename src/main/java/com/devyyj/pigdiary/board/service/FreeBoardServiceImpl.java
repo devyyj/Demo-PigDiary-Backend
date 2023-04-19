@@ -36,7 +36,8 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     public PageResultDTO<FreeBoardDTO, FreeBoard> getList(PageRequestDTO pageRequestDTO) {
         Pageable pageable = pageRequestDTO.getPageable(Sort.by("number").descending());
         Page<FreeBoard> result = freeBoardRepository.findAll(pageable);
-        Function<FreeBoard, FreeBoardDTO> fn = (entity -> entityToDto(entity));
+//        Function<FreeBoard, FreeBoardDTO> fn = (entity -> entityToDto(entity));
+        Function<FreeBoard, FreeBoardDTO> fn = (this::entityToDto);
         return new PageResultDTO<>(result, fn);
     }
 
@@ -44,7 +45,8 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     public FreeBoardDTO getPost(Long postNumber) {
         Optional<FreeBoard> result = freeBoardRepository.findById(postNumber);
         // isPresent() 공부하기
-        return result.isPresent() ? entityToDto(result.get()) : null;
+//        return result.isPresent() ? entityToDto(result.get()) : null;
+        return result.map(this::entityToDto).orElse(null);
     }
 
     @Override

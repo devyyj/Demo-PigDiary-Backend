@@ -23,6 +23,9 @@ public class PageRequestDTO {
         this.size = 10;
     }
 
+    /**
+     * JPA에서 사용하는 Pageable 객체를 반환
+     */
     public Pageable getPageable(Sort sort) {
         // JPA를 사용하는 경우에는 페이지 번호가 0부터 시작한다는 점을 감안해서 page - 1
         return PageRequest.of(page - 1, size, sort);
