@@ -5,7 +5,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MainController {
-
+    @GetMapping("/")
+    public String root() {
+        return "root";
+    }
     @GetMapping("/all")
     public String all() {
         return "all";
