@@ -47,8 +47,8 @@ public class PageResultDTO<DTO, EN> {
         page = pageable.getPageNumber() + 1; // 0부터 시작하기 때문에 1 추가
         size = pageable.getPageSize();
 
-        int tempEnd = (int) (Math.ceil(page / 10.0)) * 10;
-        start = tempEnd - 9;
+        int tempEnd = (int) (Math.ceil((double) page / 5)) * 5;
+        start = tempEnd - 4;
         prev = start > 1;
         end = Math.min(totalPage, tempEnd);
         next = totalPage > tempEnd;
