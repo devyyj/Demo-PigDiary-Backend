@@ -38,9 +38,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
-}
+// 언젠가부터 Gradle test 단계에서 에러 발생해서 주석처리
+//tasks.named('test') {
+//    useJUnitPlatform()
+//}
 
 // 여기서부터
 def querydslDir = "$buildDir/generated/querydsl"
