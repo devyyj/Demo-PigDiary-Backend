@@ -6,8 +6,8 @@ plugins {
     id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 }
 
-group = 'kr.yyj'
-version = '0.0.1-SNAPSHOT'
+group = 'com.devyyj'
+//version = '1.0.0'
 sourceCompatibility = '17'
 
 configurations {

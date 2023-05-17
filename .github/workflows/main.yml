@@ -35,7 +35,7 @@ jobs:
 
     - name: Copy files to the AWS S3 bucket
       run: |
-        zip -j app.zip build/libs/*.jar appspec.yml
+        zip -j app.zip build/libs/*.jar appspec.yml scripts
         aws s3 cp app.zip s3://devyyj-github/app.zip
 
     - name: Deploy to AWS EC2

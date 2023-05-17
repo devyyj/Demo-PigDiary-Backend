@@ -3,17 +3,13 @@ os: linux
 files:
   - source: /
     destination: /var/www
-#hooks:
-#  BeforeInstall:
-#    - location: Scripts/UnzipResourceBundle.sh
-#    - location: Scripts/UnzipDataBundle.sh
+hooks:
+  BeforeInstall:
+    - location: scripts/service_stop.sh
+      runas: root
 #  AfterInstall:
-#    - location: Scripts/RunResourceTests.sh
-#      timeout: 180
-#  ApplicationStart:
-#    - location: Scripts/RunFunctionalTests.sh
-#      timeout: 3600
-#  ValidateService:
-#    - location: Scripts/MonitorService.sh
-#      timeout: 3600
-#      runas: codedeployuser
+#    - location: scripts/change_permissions.sh
+#      runas: root
+  ApplicationStart:
+    - location: scripts/service_stop.sh
+      runas: root
