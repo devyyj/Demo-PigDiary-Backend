@@ -11,5 +11,5 @@ hooks:
 #    - location: scripts/change_permissions.sh
 #      runas: root
   ApplicationStart:
-    - location: service_stop.sh
+    - location: service_start.sh
       runas: root
