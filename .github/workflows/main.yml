@@ -43,4 +43,4 @@ jobs:
           --application-name pig_diary \
           --deployment-config-name CodeDeployDefault.OneAtATime \
           --deployment-group-name pig_diary_dev \
-          --s3-location bucket=devyyj-github,bundleType=jar,key=app.jar
+          --s3-location bucket=devyyj-github,bundleType=zip,key=app.zip
