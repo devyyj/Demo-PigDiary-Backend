@@ -43,13 +43,6 @@ dependencies {
 //    useJUnitPlatform()
 //}
 
-bootJar {
-    // appspec.yml 파일을 JAR에 포함
-    from("appspec.yml") {
-        into("/")
-    }
-}
-
 // 여기서부터
 def querydslDir = "$buildDir/generated/querydsl"
 
