@@ -56,6 +56,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
         if (result.isPresent()) {
             FreeBoard freeBoard = result.get();
 
+            freeBoard.setUser(freeBoardDTO.getUser());
             freeBoard.setTitle(freeBoardDTO.getTitle());
             freeBoard.setContent(freeBoardDTO.getContent());
 
