@@ -2,7 +2,6 @@ package com.devyyj.pigdiary.user.entity;
 
 import com.devyyj.pigdiary.common.entity.CommonEntity;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -19,8 +18,8 @@ public class User extends CommonEntity {
     private Long id;
 
     @Column(nullable = false)
-    private String social_id;
+    private String socialId;
 
     @Column(nullable = false)
-    private String nick_name;
+    private String nickName;
 }

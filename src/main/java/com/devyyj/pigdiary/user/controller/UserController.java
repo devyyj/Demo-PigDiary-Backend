@@ -6,8 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/user")
@@ -15,8 +14,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping
-    ResponseEntity<Long> createUser(UserDTO userDTO) {
-        return new ResponseEntity<>(userService.createUser(userDTO), HttpStatus.CREATED);
+    /**
+     * 가입 유무를 확인해서 가입시킨다
+     * @param userDTO
+     * @return 유저 닉네임
+     */
+    @PostMapping
+    ResponseEntity<String> createUser(@RequestBody UserDTO userDTO) {
+        String nick_name = userService.getUser(userDTO);
+
+        if (nick_name == null) {
+            userService.createUser(userDTO);
+            nick_name = userDTO.getNickName();
+        }
+
+        return new ResponseEntity<>(nick_name, HttpStatus.CREATED);
     }
 }
