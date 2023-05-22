@@ -16,12 +16,15 @@ import java.time.LocalDateTime;
 // 엔티티 객체에 변경이 일어나는 것을 감지하는 리스너 -> AuditingEntityListener
 @EntityListeners(value = {AuditingEntityListener.class})
 @Getter
-public abstract class BaseEntity {
+public abstract class CommonEntity {
     @CreatedDate // 엔티티 생성 시간 자동으로 처리
-    @Column(name = "regdate", updatable = false)
+    @Column(name = "reg_date", updatable = false)
     private LocalDateTime regDate;
 
     @LastModifiedDate // 최종 수정 시간 자동으로 처리
-    @Column(name = "moddate")
+    @Column(name = "mod_date")
     private LocalDateTime modDate;
+
+    @Column(name = "del_date")
+    private LocalDateTime delDate;
 }

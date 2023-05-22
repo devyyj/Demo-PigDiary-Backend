@@ -1,17 +1,15 @@
 package com.devyyj.pigdiary.board.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.devyyj.pigdiary.common.dto.CommonDTO;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 
-import java.time.LocalDateTime;
 
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @Data
-public class FreeBoardDTO {
+public class FreeBoardDTO extends CommonDTO {
     /**
      * DTO(Data Transfer Object)는 엔티티 객체와 달리 각 계층끼리 주고받는 우편물이나 상자의 개념
      * 순수하게 데이터를 담고 있다는 점에서는 엔티티 객체와 유사하지만,
@@ -29,5 +27,4 @@ public class FreeBoardDTO {
     private String title;
     private String content;
     private String user;
-    private LocalDateTime regDate, modDate;
 }

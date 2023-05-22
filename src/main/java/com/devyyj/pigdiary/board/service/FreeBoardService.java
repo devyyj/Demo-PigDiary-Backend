@@ -39,6 +39,7 @@ public interface FreeBoardService {
                 .user(entity.getUser())
                 .regDate(entity.getRegDate())
                 .modDate(entity.getModDate())
+                .delDate(entity.getDelDate())
                 .build();
     }
 
