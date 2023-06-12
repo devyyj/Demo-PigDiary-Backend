@@ -2,14 +2,17 @@ package com.devyyj.pigdiary.board.entity;
 
 import com.devyyj.pigdiary.common.entity.CommonEntity;
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 @ToString
 public class FreeBoard extends CommonEntity {
 
@@ -30,4 +33,17 @@ public class FreeBoard extends CommonEntity {
 
     @Column(length = 50, nullable = false)
     private String user;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        FreeBoard freeBoard = (FreeBoard) o;
+        return getNumber() != null && Objects.equals(getNumber(), freeBoard.getNumber());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
