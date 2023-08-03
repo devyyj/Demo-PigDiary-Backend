@@ -3,7 +3,7 @@ package com.devyyj.pigdiary.user.entity;
 import com.devyyj.pigdiary.common.entity.CommonEntity;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Builder
