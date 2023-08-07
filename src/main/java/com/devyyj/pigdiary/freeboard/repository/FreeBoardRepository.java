@@ -1,6 +1,6 @@
-package com.devyyj.pigdiary.board.repository;
+package com.devyyj.pigdiary.freeboard.repository;
 
-import com.devyyj.pigdiary.board.entity.FreeBoard;
+import com.devyyj.pigdiary.freeboard.entity.FreeBoard;
 import org.springframework.data.jpa.repository.JpaRepository;
 //import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 

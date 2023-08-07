@@ -1,10 +1,10 @@
-package com.devyyj.pigdiary.board.service;
+package com.devyyj.pigdiary.freeboard.service;
 
-import com.devyyj.pigdiary.board.dto.FreeBoardDTO;
-import com.devyyj.pigdiary.board.dto.PageRequestDTO;
-import com.devyyj.pigdiary.board.dto.PageResultDTO;
-import com.devyyj.pigdiary.board.entity.FreeBoard;
-import com.devyyj.pigdiary.board.repository.FreeBoardRepository;
+import com.devyyj.pigdiary.freeboard.dto.FreeBoardDTO;
+import com.devyyj.pigdiary.freeboard.dto.PageRequestDTO;
+import com.devyyj.pigdiary.freeboard.dto.PageResultDTO;
+import com.devyyj.pigdiary.freeboard.entity.FreeBoard;
+import com.devyyj.pigdiary.freeboard.repository.FreeBoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;

@@ -1,6 +1,6 @@
 package com.devyyj.pigdiary.repository;
-import com.devyyj.pigdiary.board.entity.FreeBoard;
-import com.devyyj.pigdiary.board.repository.FreeBoardRepository;
+import com.devyyj.pigdiary.freeboard.entity.FreeBoard;
+import com.devyyj.pigdiary.freeboard.repository.FreeBoardRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

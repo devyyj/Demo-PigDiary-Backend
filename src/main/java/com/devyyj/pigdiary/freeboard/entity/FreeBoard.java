@@ -1,4 +1,4 @@
-package com.devyyj.pigdiary.board.entity;
+package com.devyyj.pigdiary.freeboard.entity;
 
 import com.devyyj.pigdiary.common.entity.CommonEntity;
 import lombok.*;

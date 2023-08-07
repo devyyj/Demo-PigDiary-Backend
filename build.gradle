@@ -35,6 +35,9 @@ dependencies {
 //    implementation "com.querydsl:querydsl-apt:5.0.0" // 이 부분도 책에 없다 querydsl 관련
 
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    // https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-client
+    implementation 'org.springframework.security:spring-security-oauth2-client'
+
 }
 
 // 언젠가부터 Gradle test 단계에서 에러 발생해서 주석처리

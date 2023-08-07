@@ -1,4 +1,4 @@
-package com.devyyj.pigdiary.board.dto;
+package com.devyyj.pigdiary.freeboard.dto;
 
 import com.devyyj.pigdiary.common.dto.CommonDTO;
 import lombok.*;

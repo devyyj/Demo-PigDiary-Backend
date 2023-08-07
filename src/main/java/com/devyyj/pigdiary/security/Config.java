@@ -1,4 +1,4 @@
-package com.devyyj.pigdiary.config;
+package com.devyyj.pigdiary.security;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,32 +20,20 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 @RequiredArgsConstructor
 @Log4j2
-public class SecurityConfig {
+public class Config {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/all").permitAll()
-                        .requestMatchers("/memeber").hasRole("USER")
-                        .anyRequest().authenticated()
-                )
+                .csrf(AbstractHttpConfigurer::disable)
+//                .authorizeHttpRequests((authz) -> authz
+//                        .requestMatchers("/all").permitAll()
+//                        .requestMatchers("/memeber").hasRole("USER")
+//                        .anyRequest().authenticated()
+//                )
                 .formLogin(withDefaults())
-                .httpBasic(withDefaults());
+//                .httpBasic(withDefaults())
+                .oauth2Login(withDefaults());
         return http.build();
-    }
-
-    @Bean
-    public InMemoryUserDetailsManager userDetailsService() {
-        UserDetails user = User.builder()
-                .username("user1")
-                .password(passwordEncoder().encode("1111"))
-                .roles("USER")
-                .build();
-
-        log.info("userDetailsService............................");
-        log.info(user);
-
-        return new InMemoryUserDetailsManager(user);
     }
 
     @Bean

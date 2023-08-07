@@ -1,9 +1,9 @@
-package com.devyyj.pigdiary.board.service;
+package com.devyyj.pigdiary.freeboard.service;
 
-import com.devyyj.pigdiary.board.dto.FreeBoardDTO;
-import com.devyyj.pigdiary.board.dto.PageRequestDTO;
-import com.devyyj.pigdiary.board.dto.PageResultDTO;
-import com.devyyj.pigdiary.board.entity.FreeBoard;
+import com.devyyj.pigdiary.freeboard.dto.FreeBoardDTO;
+import com.devyyj.pigdiary.freeboard.dto.PageRequestDTO;
+import com.devyyj.pigdiary.freeboard.dto.PageResultDTO;
+import com.devyyj.pigdiary.freeboard.entity.FreeBoard;
 
 public interface FreeBoardService {
     // 게시글 목록
