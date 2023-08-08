@@ -1,5 +1,7 @@
 package com.devyyj.pigdiary;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
@@ -29,6 +31,11 @@ public class MainController {
     @PreAuthorize("hasAuthority('OAUTH2_USER')")
     public String admin() {
         return "admin";
+    }
+
+    @GetMapping("/api/login")
+    public ResponseEntity<String> login(){
+        return new ResponseEntity<>("login", HttpStatus.OK);
     }
 
 }

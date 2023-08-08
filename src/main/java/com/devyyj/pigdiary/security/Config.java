@@ -1,10 +1,13 @@
 package com.devyyj.pigdiary.security;
 
 import com.devyyj.pigdiary.security.filter.ApiCheckfilter;
+import com.devyyj.pigdiary.security.filter.ApiLoginFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -24,6 +27,15 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class Config {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        //AuthenticationManager설정
+        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+//        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        // Get AuthenticationManager
+        AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
+
+        //반드시 필요
+        http.authenticationManager(authenticationManager);
+
         http
                 .csrf(AbstractHttpConfigurer::disable)
 //                .authorizeHttpRequests((authz) -> authz
@@ -34,7 +46,8 @@ public class Config {
                 .formLogin(withDefaults())
 //                .httpBasic(withDefaults())
                 .oauth2Login(withDefaults())
-                .addFilterBefore(apiCheckfilter(), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(apiCheckfilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(apiLoginFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
@@ -46,5 +59,12 @@ public class Config {
     @Bean
     public ApiCheckfilter apiCheckfilter(){
         return new ApiCheckfilter();
+    }
+
+    public ApiLoginFilter apiLoginFilter(AuthenticationManager authenticationManager){
+        ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/api/login");
+        apiLoginFilter.setAuthenticationManager(authenticationManager);
+
+        return apiLoginFilter;
     }
 }
