@@ -1,6 +1,6 @@
 package com.devyyj.pigdiary.security.service;
 
-import com.devyyj.pigdiary.user.entity.User;
+import com.devyyj.pigdiary.user.entity.MyUser;
 import com.devyyj.pigdiary.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -28,7 +28,7 @@ public class MyOAuth2UserDetailsService extends DefaultOAuth2UserService {
         String sub = user.getAttribute("sub");
 
         if(userRepository.findBySocialId(sub).isEmpty()) {
-            userRepository.save(User.builder().nickName(sub).socialId(sub).build());
+            userRepository.save(MyUser.builder().nickName(sub).socialId(sub).build());
         }
 
         return user;

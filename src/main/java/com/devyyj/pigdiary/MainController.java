@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MainController {
     @GetMapping("/")
-    @PreAuthorize("hasAuthority('OAUTH2_USER')")
+//        @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+//    @PreAuthorize("hasAuthority('OAUTH2_USER')")
     public String root() {
         return "root";
     }
@@ -22,18 +24,18 @@ public class MainController {
 
     @GetMapping("/member")
 //    @PreAuthorize("hasRole('USER')")
-    @PreAuthorize("hasAuthority('OAUTH2_USER')")
+//    @PreAuthorize("hasAuthority('OAUTH2_USER')")
     public String member() {
         return "member";
     }
 
     @GetMapping("/admin")
-    @PreAuthorize("hasAuthority('OAUTH2_USER')")
+//    @PreAuthorize("hasAuthority('OAUTH2_USER')")
     public String admin() {
         return "admin";
     }
 
-    @GetMapping("/api/login")
+    @GetMapping("/login")
     public ResponseEntity<String> login(){
         return new ResponseEntity<>("login", HttpStatus.OK);
     }

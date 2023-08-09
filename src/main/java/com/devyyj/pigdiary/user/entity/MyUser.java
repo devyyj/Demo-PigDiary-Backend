@@ -11,7 +11,8 @@ import jakarta.persistence.*;
 @AllArgsConstructor
 @Setter
 @Getter
-public class User extends CommonEntity {
+@Table(name = "user")
+public class MyUser extends CommonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -13,7 +13,7 @@ class PigdiaryApplicationTests {
 
     @Test
     public void testEncode() {
-        String pw = "1111";
+        String pw = "1234";
         String enpw = passwordEncoder.encode(pw);
 
         System.out.println(enpw);

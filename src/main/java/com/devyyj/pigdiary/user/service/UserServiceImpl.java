@@ -1,7 +1,7 @@
 package com.devyyj.pigdiary.user.service;
 
 import com.devyyj.pigdiary.user.dto.UserDTO;
-import com.devyyj.pigdiary.user.entity.User;
+import com.devyyj.pigdiary.user.entity.MyUser;
 import com.devyyj.pigdiary.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +23,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String getUser(UserDTO userDTO) {
-        Optional<User> result = userRepository.findBySocialId(userDTO.getSocialId());
+        Optional<MyUser> result = userRepository.findBySocialId(userDTO.getSocialId());
 
         String nick_name = null;
         if (result.isPresent()) {
-            User user = result.get();
-            nick_name = user.getNickName();
+            MyUser myUser = result.get();
+            nick_name = myUser.getNickName();
         }
 
         return nick_name;

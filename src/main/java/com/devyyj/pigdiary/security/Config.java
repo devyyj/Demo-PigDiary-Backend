@@ -62,7 +62,7 @@ public class Config {
     }
 
     public ApiLoginFilter apiLoginFilter(AuthenticationManager authenticationManager){
-        ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/api/login");
+        ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/login");
         apiLoginFilter.setAuthenticationManager(authenticationManager);
 
         return apiLoginFilter;
