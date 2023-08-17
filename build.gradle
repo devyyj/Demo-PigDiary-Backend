@@ -38,7 +38,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-client
     implementation 'org.springframework.security:spring-security-oauth2-client'
 
-    implementation 'io.jsonwebtoken:jjwt-api:0.9.1'
+    implementation 'com.auth0:java-jwt:4.4.0'
 }
 
 // 언젠가부터 Gradle test 단계에서 에러 발생해서 주석처리

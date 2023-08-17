@@ -2,6 +2,7 @@ package com.devyyj.pigdiary.security;
 
 import com.devyyj.pigdiary.security.filter.ApiCheckfilter;
 import com.devyyj.pigdiary.security.filter.ApiLoginFilter;
+import com.devyyj.pigdiary.security.util.JWTUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
@@ -38,14 +39,8 @@ public class Config {
 
         http
                 .csrf(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests((authz) -> authz
-//                        .requestMatchers("/all").permitAll()
-//                        .requestMatchers("/memeber").hasRole("USER")
-//                        .anyRequest().authenticated()
-//                )
-                .formLogin(withDefaults())
-//                .httpBasic(withDefaults())
-                .oauth2Login(withDefaults())
+//                .formLogin(withDefaults())
+//                .oauth2Login(withDefaults())
                 .addFilterBefore(apiCheckfilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(apiLoginFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
         return http.build();
@@ -58,11 +53,16 @@ public class Config {
 
     @Bean
     public ApiCheckfilter apiCheckfilter(){
-        return new ApiCheckfilter();
+        return new ApiCheckfilter(jwtUtil());
+    }
+
+    @Bean
+    public JWTUtil jwtUtil(){
+        return new JWTUtil();
     }
 
     public ApiLoginFilter apiLoginFilter(AuthenticationManager authenticationManager){
-        ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/login");
+        ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/login", jwtUtil());
         apiLoginFilter.setAuthenticationManager(authenticationManager);
 
         return apiLoginFilter;

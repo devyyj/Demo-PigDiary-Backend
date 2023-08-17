@@ -35,9 +35,4 @@ public class MainController {
         return "admin";
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<String> login(){
-        return new ResponseEntity<>("login", HttpStatus.OK);
-    }
-
 }

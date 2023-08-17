@@ -1,12 +1,10 @@
 package com.devyyj.pigdiary.security.util;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.DefaultClaims;
-import io.jsonwebtoken.impl.DefaultJws;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.extern.log4j.Log4j2;
 
-import java.time.ZonedDateTime;
 import java.util.Date;
 
 
@@ -19,42 +17,30 @@ public class JWTUtil {
     private long expire = 60 * 24* 30;
 
     public String generateToken(String content) throws Exception{
+        Date issuedAt = new Date();
 
-        return Jwts.builder()
-                .setIssuedAt(new Date())
-                .setExpiration(Date.from(ZonedDateTime.now().plusMinutes(expire).toInstant()))
-                //.setExpiration(Date.from(ZonedDateTime.now().plusSeconds(1).toInstant()))
-                .claim("sub", content)
-                .signWith(SignatureAlgorithm.HS256, secretKey.getBytes("UTF-8"))
-                .compact();
+        // 예를 위해 발급 시간으로부터 1시간 뒤를 만료 시간으로 설정
+        Date expiration = new Date(issuedAt.getTime() + 3600000); // 1시간
+
+        return JWT.create()
+                .withIssuedAt(issuedAt)     // 발급 시간 설정
+                .withExpiresAt(expiration)  // 만료 시간 설정
+                .withSubject(content)
+                .sign(Algorithm.HMAC256(secretKey));
     }
 
-    public String validateAndExtract(String tokenStr)throws Exception {
-
-        String contentValue = null;
+    public String validateAndExtract(String token)throws Exception {
 
         try {
-            DefaultJws defaultJws = (DefaultJws) Jwts.parser()
-                    .setSigningKey(secretKey.getBytes("UTF-8")).parseClaimsJws(tokenStr);
+            Algorithm algorithm = Algorithm.HMAC256(secretKey);
+            DecodedJWT decodedJWT = JWT.require(algorithm).build().verify(token);
 
-            log.info(defaultJws);
-
-            log.info(defaultJws.getBody().getClass());
-
-            DefaultClaims claims = (DefaultClaims) defaultJws.getBody();
-
-            log.info("------------------------");
-
-            contentValue = claims.getSubject();
-
-
-
-        }catch(Exception e){
+            return decodedJWT.getSubject(); // subject 정보 리턴
+        } catch (Exception e) {
+            // 검증 실패 시 예외 처리
             e.printStackTrace();
-            log.error(e.getMessage());
-            contentValue = null;
+            return null;
         }
-        return contentValue;
     }
 
 }

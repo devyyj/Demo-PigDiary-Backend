@@ -1,19 +1,25 @@
 package com.devyyj.pigdiary.security.filter;
 
+import com.devyyj.pigdiary.security.util.JWTUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.minidev.json.JSONObject;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.thymeleaf.util.StringUtils;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
 @Log4j2
+@RequiredArgsConstructor
 public class ApiCheckfilter extends OncePerRequestFilter {
+
+    private final JWTUtil jwtUtil;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
@@ -42,10 +48,15 @@ public class ApiCheckfilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader("Authorization");
 
-        if (authHeader != null) {
-            log.info("header is " + authHeader);
-            if (authHeader.equals("12345")) {
-                checkResult = true;
+        if(StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")){
+            log.info("Authorization exist: " + authHeader);
+
+            try {
+                String email = jwtUtil.validateAndExtract(authHeader.substring(7));
+                log.info("validate result: " + email);
+                checkResult =  email.length() > 0;
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
