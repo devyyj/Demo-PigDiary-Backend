@@ -1,24 +1,24 @@
 package com.devyyj.pigdiary.user.service;
 
 import com.devyyj.pigdiary.user.dto.UserDTO;
-import com.devyyj.pigdiary.user.entity.MyUser;
+import com.devyyj.pigdiary.user.entity.MyUser2;
 
 public interface UserService {
     void createUser(UserDTO userDTO);
 
     String getUser(UserDTO userDTO);
 
-    default MyUser dtoToEntity(UserDTO userDTO) {
-        return MyUser.builder()
+    default MyUser2 dtoToEntity(UserDTO userDTO) {
+        return MyUser2.builder()
                 .nickName(userDTO.getNickName())
                 .socialId(userDTO.getSocialId())
                 .build();
     }
 
-    default UserDTO entityToDto(MyUser myUser) {
+    default UserDTO entityToDto(MyUser2 myUser2) {
         return UserDTO.builder()
-                .nickName(myUser.getNickName())
-                .socialId(myUser.getSocialId())
+                .nickName(myUser2.getNickName())
+                .socialId(myUser2.getSocialId())
                 .build();
     }
 }

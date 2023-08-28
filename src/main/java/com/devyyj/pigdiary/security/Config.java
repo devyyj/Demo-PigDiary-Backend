@@ -1,70 +1,37 @@
 package com.devyyj.pigdiary.security;
 
-import com.devyyj.pigdiary.security.filter.ApiCheckfilter;
-import com.devyyj.pigdiary.security.filter.ApiLoginFilter;
-import com.devyyj.pigdiary.security.util.JWTUtil;
+import com.devyyj.pigdiary.security.filter.JwtAuthenticationFilter;
+import com.devyyj.pigdiary.security.handler.MyOAuth2LoginFailureHandler;
+import com.devyyj.pigdiary.security.handler.MyOAuth2LoginSuccessHandler;
+import com.devyyj.pigdiary.security.service.MyDefaultOAuth2UserService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
-@EnableWebSecurity
 @RequiredArgsConstructor
-@Log4j2
-@EnableMethodSecurity(prePostEnabled = true)
 public class Config {
+    private final MyOAuth2LoginSuccessHandler successHandler;
+    private final MyOAuth2LoginFailureHandler failureHandler;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final MyDefaultOAuth2UserService myDefaultOAuth2UserService;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        //AuthenticationManager설정
-        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-//        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-        // Get AuthenticationManager
-        AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
-
-        //반드시 필요
-        http.authenticationManager(authenticationManager);
-
+        // URL 전체 허용이 맨 처음 나오면 에러남
         http
-                .csrf(AbstractHttpConfigurer::disable)
-//                .formLogin(withDefaults())
-//                .oauth2Login(withDefaults())
-                .addFilterBefore(apiCheckfilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(apiLoginFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
+                .authorizeHttpRequests((authz) -> authz
+                        .requestMatchers("/api/**").authenticated()
+                        .anyRequest().permitAll()
+                )
+                .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .oauth2Login(c -> c.successHandler(successHandler)
+                        .failureHandler(failureHandler))
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
-    }
-
-    @Bean
-    PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public ApiCheckfilter apiCheckfilter(){
-        return new ApiCheckfilter(jwtUtil());
-    }
-
-    @Bean
-    public JWTUtil jwtUtil(){
-        return new JWTUtil();
-    }
-
-    public ApiLoginFilter apiLoginFilter(AuthenticationManager authenticationManager){
-        ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/login", jwtUtil());
-        apiLoginFilter.setAuthenticationManager(authenticationManager);
-
-        return apiLoginFilter;
     }
 }
